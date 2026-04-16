@@ -1,3 +1,5 @@
+import { getStatusKey } from "../../data/contributions";
+
 const statusClassMap = {
   approved: "status-badge status-badge--approved",
   "under-review": "status-badge status-badge--review",
@@ -5,7 +7,13 @@ const statusClassMap = {
 };
 
 function StatusBadge({ status, statusKey }) {
-  return <span className={statusClassMap[statusKey]}>{status}</span>;
+  const resolvedStatusKey = statusKey ?? getStatusKey(status);
+
+  return (
+    <span className={statusClassMap[resolvedStatusKey] ?? statusClassMap["in-progress"]}>
+      {status}
+    </span>
+  );
 }
 
 export default StatusBadge;

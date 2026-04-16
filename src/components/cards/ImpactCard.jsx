@@ -1,4 +1,4 @@
-import { ArrowUpRight, Binary, Radar } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Radar } from "lucide-react";
 import { motion } from "framer-motion";
 import Button from "../ui/Button";
 import StatusBadge from "../ui/StatusBadge";
@@ -35,14 +35,19 @@ function ImpactCard({ contribution }) {
 
       <p className="impact-card__body">{contribution.impact}</p>
 
+      <div className="impact-card__why">
+        <strong>Why it matters</strong>
+        <p>{contribution.description}</p>
+      </div>
+
       <div className="impact-card__meta">
         <span>
           <Radar size={15} />
           {contribution.area}
         </span>
         <span>
-          <Binary size={15} />
-          {contribution.repo}
+          <CalendarDays size={15} />
+          {contribution.date || "Date TBD"}
         </span>
       </div>
 
@@ -50,7 +55,7 @@ function ImpactCard({ contribution }) {
         as="a"
         href={contribution.link}
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
         variant="secondary"
         icon={<ArrowUpRight size={16} />}
       >

@@ -1,4 +1,4 @@
-import { Github, ShieldCheck } from "lucide-react";
+import { Github, LockKeyhole, ShieldCheck } from "lucide-react";
 import Button from "../ui/Button";
 
 const navItems = [
@@ -7,15 +7,25 @@ const navItems = [
   { label: "Skills", href: "#skills" },
 ];
 
-function TopNav() {
+function TopNav({
+  isAdminAuthenticated,
+  sessionCountdownLabel,
+}) {
   return (
     <header className="top-nav">
       <div className="container top-nav__inner">
-        <a className="brand" href="#hero" aria-label="Urval home">
+        <a
+          className="brand"
+          href="#hero"
+          aria-label="Urval home"
+          onDoubleClick={() => {
+            window.dispatchEvent(new CustomEvent("dashboard:open-admin"));
+          }}
+        >
           <span className="brand__mark">U</span>
           <span>
             Urval
-            <small>Contribution Intelligence Dashboard</small>
+            <small>Systems Engineering Contributions</small>
           </span>
         </a>
 
@@ -29,7 +39,7 @@ function TopNav() {
 
         <Button
           as="a"
-          href="https://github.com/Urval"
+          href="https://github.com/urvalkheni"
           target="_blank"
           rel="noreferrer"
           variant="ghost"
@@ -40,10 +50,18 @@ function TopNav() {
       </div>
 
       <div className="container top-nav__signal">
-        <span className="signal-pill">
-          <ShieldCheck size={14} />
-          Security-first upstream engineering
-        </span>
+        <div className="top-nav__status-row">
+          <span className="signal-pill">
+            <ShieldCheck size={14} />
+            Open source systems engineering
+          </span>
+          {isAdminAuthenticated ? (
+            <span className="signal-pill signal-pill--active">
+              <LockKeyhole size={14} />
+              Admin session {sessionCountdownLabel}
+            </span>
+          ) : null}
+        </div>
       </div>
     </header>
   );

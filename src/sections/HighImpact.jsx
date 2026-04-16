@@ -1,17 +1,20 @@
 import { motion } from "framer-motion";
 import ImpactCard from "../components/cards/ImpactCard";
 import SectionHeading from "../components/ui/SectionHeading";
-import { featuredContributions } from "../data/contributions";
 
-function HighImpact() {
+function HighImpact({ contributions }) {
   return (
     <section className="section" id="impact">
       <div className="container">
         <SectionHeading
           eyebrow="High Impact Work"
-          title="Security-relevant upstream changes with visible engineering leverage"
-          description="These featured contributions are the highest-signal examples of systems work: hardening packet parsing, preserving analyzer correctness, and improving runtime behavior in traffic paths defenders rely on."
+          title="The strongest examples of engineering impact"
+          description="These are the contributions I would want a recruiter or engineering manager to see first: technically specific changes, clear operational value, and evidence of real debugging depth."
         />
+        <p className="section-note">
+          Each highlighted contribution answers the same question: why should an
+          engineering team care about this change in a real system?
+        </p>
 
         <motion.div
           className="impact-grid"
@@ -26,9 +29,19 @@ function HighImpact() {
             },
           }}
         >
-          {featuredContributions.map((contribution) => (
-            <ImpactCard key={contribution.id} contribution={contribution} />
-          ))}
+          {contributions.length > 0 ? (
+            contributions.map((contribution) => (
+              <ImpactCard key={contribution.id} contribution={contribution} />
+            ))
+          ) : (
+            <div className="panel empty-state empty-state--compact">
+              <h3>No featured contributions yet</h3>
+              <p>
+                Add contributions in edit mode and your highest-signal work will
+                appear here automatically.
+              </p>
+            </div>
+          )}
         </motion.div>
       </div>
     </section>
